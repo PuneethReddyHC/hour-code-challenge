@@ -11,9 +11,10 @@
               <swiper class="swiper mt-2">
                 <swiper-slide v-for="page in chapter.pages" :key="page.id">
                   <img :src="page.image.file"/>
+                  <p class="pt-2">{{page.id}}/{{chapter.pages.length}}</p>
                 </swiper-slide>
               </swiper>
-              <p>{{totalpages}}</p>
+              
           </div>
         </div>
     </div>
@@ -39,14 +40,9 @@ export default {
     return {
       chapter: null,
       activetab: null,
-      totalpages: null,
     }
   },
   mounted(){
-      // const api = 'http://18.179.108.80:8080/chapters/';
-      // this.axios.get(api).then((response) => {
-      //       this.chapters = response.data
-      //   })
       this.getChapters(this.chapter_ids[0]);
 
   },
@@ -58,8 +54,6 @@ export default {
         this.axios.get(api).then((response) => {
             this.chapter = response.data
         })
-        this.totalpages = this.chapter.pages.length;
-        console.log(this.totalpages);
     }
   }
 }
