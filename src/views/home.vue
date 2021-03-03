@@ -5,8 +5,8 @@
 
       <b-tab v-for="book in books" :key="book.id" no-body :title="book.title">
          <chapter :book="book"> </chapter>
-        <b-card-img bottom src="https://media.gettyimages.com/photos/stack-of-books-in-home-interior-picture-id532852345?s=2048x2048" alt="Image 21"></b-card-img>
-        <b-card-footer>Picture 1 footer</b-card-footer>
+        
+        <b-card-footer>{{book.id}}</b-card-footer>
       </b-tab>
     </b-tabs>
   </b-card>

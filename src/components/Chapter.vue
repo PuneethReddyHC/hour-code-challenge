@@ -1,23 +1,23 @@
 <template>
-  <div>
-  <div class="header" id="myHeader">
-  <h1>{{book.title}}</h1>
-  <p>Below Lists the Chapters</p>
+<div>
+    <div class="header" id="myHeader">
+        <h1>{{book.title}}</h1>
+        <p>Below Lists the Chapters</p>
 
-  <button v-for="chap in book.chapter_ids" :key="chap" class="btn" @click="getChapters(chap)">{{chap}}</button>
- 
-</div>
+        <button v-for="chap in book.chapter_ids" :key="chap" class="btn" @click="getChapters(chap)">{{chap}}</button>
+    
+    </div>
 
-<!-- Photo Grid -->
-<div class="row"> 
+    <!-- Photo Grid -->
+    <div class="row"> 
+        
+        <div class="column" v-if="chapters">
+            <!-- {{chapters.pages}} -->
+            <div v-for="img in chapters.pages" :key="img.id"> <img   :src="img.image.file" style="width:100%">{{img}}</div>
+            
+        </div>
     
-  <div class="column">
-      
-    <div v-for="img in chapters.book.pages" :key="img.id"> <img   :src="img.image.file" style="width:100%">{{img}}</div>
-    
-  </div>
-  
-</div>
+    </div>
 </div>
 </template>
 
@@ -36,11 +36,10 @@ export default {
     }
   },
   mounted(){
-      const api = 'http://18.179.108.80:8080/chapters/' + this.book.chapter_ids[0] + '/';
-      this.axios.get(api).then((response) => {
-            this.chapters = response.data
-        })
-    //   console.log(this.books);
+    //   const api = 'http://18.179.108.80:8080/chapters/' + this.book.chapter_ids[0] + '/';
+    //   this.axios.get(api).then((response) => {
+    //         this.chapters = response.data
+    //     })
     //   var header = document.getElementById("myHeader");
     //     var btns = header.getElementsByClassName("btn");
     //     for (var i = 0; i < btns.length; i++) {
