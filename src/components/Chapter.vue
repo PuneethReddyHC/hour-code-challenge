@@ -1,136 +1,79 @@
 <template>
-<div>
-    <div class="header" id="myHeader">
-        <h1>{{book.title}}</h1>
-        <p>Below Lists the Chapters</p>
+  <div class="container">
 
-        <button v-for="chap in book.chapter_ids" :key="chap" class="btn mr-2" @click="getChapters(chap)">{{chap}}</button>
-    
+    <div class="tabs">
+      <button v-for="chap in chapter_ids" @click="getChapters(chap)" :key="chap+'chap'+chap"
+      v-on:click="activetab=chap" v-bind:class="[ activetab === chap ? 'active' : '' ]">{{chap}}</button>
     </div>
-
-    <!-- Photo Grid -->
-    <div class="container">
-        <div class="row"> 
-            
-            <div class="justify-content-center" v-if="chapters">
-                <!-- {{chapters.pages}} -->
-                <div class="">
-                    <b-carousel
-                        id="carousel-fade"
-                        style="text-shadow: 0px 0px 2px #000"
-                        controls
-                        fade
-                        indicators
-                        img-width="1024"
-                        img-height="380"
-                    >
-                        <b-carousel-slide
-                        v-for="img in chapters.pages" :key="img.id"
-                        caption="First slide"
-                        :img-src="img.image.file"
-                        ></b-carousel-slide>
-                        
-                    </b-carousel>
-                    
-                </div>
-            </div>
+    <div class="pt-2">
+        <div v-for="chap in chapter_ids" :key="chap+'chap'+chap">
+          <div v-if="activetab === chap" class="tabcontent">
+              <swiper class="swiper mt-2">
+                <swiper-slide v-for="page in chapter.pages" :key="page.id">
+                  <img :src="page.image.file"/>
+                </swiper-slide>
+              </swiper>
+              <p>{{totalpages}}</p>
+          </div>
         </div>
     </div>
-</div>
+    
+  </div>
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+
 export default {
   name: 'Chapter',
-  props: {
-      book: {
-      type: Object,
-    },
+  components:{
+    Swiper, 
+    SwiperSlide
   },
- 
+  props: {
+    chapter_ids: {
+      type: Array
+    }
+  },
   data () {
     return {
-      chapters: null
+      chapter: null,
+      activetab: null,
+      totalpages: null,
     }
   },
   mounted(){
-    //   const api = 'http://18.179.108.80:8080/chapters/' + this.book.chapter_ids[0] + '/';
-    //   this.axios.get(api).then((response) => {
-    //         this.chapters = response.data
-    //     })
-    //   var header = document.getElementById("myHeader");
-    //     var btns = header.getElementsByClassName("btn");
-    //     for (var i = 0; i < btns.length; i++) {
-    //     btns[i].addEventListener("click", function() {
-    //         var current = document.getElementsByClassName("active");
-    //         current[0].className = current[0].className.replace(" active", "");
-    //         this.className += " active";
-    //     });
-    //     }
-                    
-    },
-methods:{
+      // const api = 'http://18.179.108.80:8080/chapters/';
+      // this.axios.get(api).then((response) => {
+      //       this.chapters = response.data
+      //   })
+      this.getChapters(this.chapter_ids[0]);
+
+  },
+  methods:{
     
     getChapters: function(id){
+        this.activetab = id;
         const api = 'http://18.179.108.80:8080/chapters/' + id + '/';
         this.axios.get(api).then((response) => {
-            this.chapters = response.data
+            this.chapter = response.data
         })
+        this.totalpages = this.chapter.pages.length;
+        console.log(this.totalpages);
     }
-    
-                    // Get the elements with class="column"
-                    
-
-    // Add active class to the current button (highlight it)
-    
   }
-
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.header {
-  text-align: center;
-  padding: 32px;
-}
+.active {
+    background-color: rgb(1 91 92);
+    color: white;
+    border-color: goldenrod;
+  }
 
-.row {
-  display: -ms-flexbox; /* IE 10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE 10 */
-  flex-wrap: wrap;
-  padding: 0 4px;
-}
-
-/* Create two equal columns that sits next to each other */
-.column {
-  -ms-flex: 50%; /* IE 10 */
-  flex: 50%;
-  padding: 0 4px;
-}
-
-.column img {
-  margin-top: 8px;
-  vertical-align: middle;
-}
-
-/* Style the buttons */
-.btn {
-  border: none;
-  outline: none;
-  padding: 10px 16px;
-  background-color: #f1f1f1;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.btn:hover {
-  background-color: #ddd;
-}
-
-.btn.active {
-  background-color: #666;
-  color: white;
+img{
+  height: 530px;
 }
 </style>

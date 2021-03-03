@@ -1,36 +1,58 @@
 <template>
+  
   <div>
-  <b-card no-body v-if="chapters">
-    <b-tabs card>
+    <div class="tabs">
+      <button v-for="book in books" :key="book.title"
+      v-on:click="activetab=book.id" v-bind:class="[ activetab === book.id ? 'active' : '' ]">{{book.title}}</button>
+    </div>
+    <div class="pt-2">
+        <div v-for="book in books" :key="book.title+book.id">
+          <div v-if="activetab === book.id" class="tabcontent">
+              <chapter :chapter_ids="book.chapter_ids"></chapter>
+          </div>
+        </div>
+        
+    </div>
+  </div>
 
-      <b-tab v-for="chapter in chapters" :key="chapter.id" no-body :title="chapter.title">
-        <b-card-img bottom src="https://media.gettyimages.com/photos/stack-of-chapters-in-home-interior-picture-id532852345?s=2048x2048" alt="Image 21"></b-card-img>
-        <b-card-footer>Picture 1 footer</b-card-footer>
-      </b-tab>
-
-    </b-tabs>
-  </b-card>
-</div>
 </template>
 
 <script>
+// import Tabs from './Tabs.vue';
+// import Tab from './Tab.vue';
+
+import Chapter from "./Chapter.vue";
 export default {
-  name: 'Home',
+  name: 'BookStore',
+  components:{
+    // Tab,
+    // Tabs,
+    Chapter
+  },
+  props: {
+    books: {
+      type: Array
+    }
+  },
   data () {
     return {
-      chapters: null
+      activetab: 1 
     }
   },
   mounted(){
-      const api = 'http://18.179.108.80:8080/chapters/';
-      this.axios.get(api).then((response) => {
-            this.chapters = response.data
-        })
+      // const api = 'http://18.179.108.80:8080/chapters/';
+      // this.axios.get(api).then((response) => {
+      //       this.chapters = response.data
+      //   })
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.active {
+    background-color: rgb(1 91 92);
+    color: white;
+    border-color: goldenrod;
+  }
 </style>
