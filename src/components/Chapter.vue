@@ -13,13 +13,8 @@
     
   <div class="column">
       
-    <img v-for="img in chapters.book.pages" :key="img.id"  :src="img.image.file" style="width:100%">
-    <img src="/w3images/rocks.jpg" style="width:100%">
-    <img src="/w3images/falls2.jpg" style="width:100%">
-    <img src="/w3images/paris.jpg" style="width:100%">
-    <img src="/w3images/nature.jpg" style="width:100%">
-    <img src="/w3images/mist.jpg" style="width:100%">
-    <img src="/w3images/paris.jpg" style="width:100%">
+    <div v-for="img in chapters.book.pages" :key="img.id"> <img   :src="img.image.file" style="width:100%">{{img}}</div>
+    
   </div>
   
 </div>
@@ -41,16 +36,20 @@ export default {
     }
   },
   mounted(){
-      console.log(this.books);
-      var header = document.getElementById("myHeader");
-        var btns = header.getElementsByClassName("btn");
-        for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
-        });
-        }
+      const api = 'http://18.179.108.80:8080/chapters/' + this.book.chapter_ids[0] + '/';
+      this.axios.get(api).then((response) => {
+            this.chapters = response.data
+        })
+    //   console.log(this.books);
+    //   var header = document.getElementById("myHeader");
+    //     var btns = header.getElementsByClassName("btn");
+    //     for (var i = 0; i < btns.length; i++) {
+    //     btns[i].addEventListener("click", function() {
+    //         var current = document.getElementsByClassName("active");
+    //         current[0].className = current[0].className.replace(" active", "");
+    //         this.className += " active";
+    //     });
+    //     }
                     
     },
 methods:{
