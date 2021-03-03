@@ -13,7 +13,7 @@
         
         <div class="column" v-if="chapters">
             <!-- {{chapters.pages}} -->
-            <div v-for="img in chapters.pages" :key="img.id"> <img   :src="img.image.file" style="width:100%">{{img}}</div>
+            <div v-for="img in chapters.pages" :key="img.id"> <img   :src="img.image.file" width="300" height="200"></div>
             
         </div>
     
