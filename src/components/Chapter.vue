@@ -10,9 +10,10 @@
 
 <!-- Photo Grid -->
 <div class="row"> 
+    
   <div class="column">
-      {{book}}
-    <img  src="/w3images/wedding.jpg" style="width:100%">
+      
+    <img v-for="img in chapters.book.pages" :key="img.id"  :src="img.image.file" style="width:100%">
     <img src="/w3images/rocks.jpg" style="width:100%">
     <img src="/w3images/falls2.jpg" style="width:100%">
     <img src="/w3images/paris.jpg" style="width:100%">
