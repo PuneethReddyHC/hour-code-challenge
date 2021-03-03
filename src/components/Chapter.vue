@@ -4,19 +4,37 @@
         <h1>{{book.title}}</h1>
         <p>Below Lists the Chapters</p>
 
-        <button v-for="chap in book.chapter_ids" :key="chap" class="btn" @click="getChapters(chap)">{{chap}}</button>
+        <button v-for="chap in book.chapter_ids" :key="chap" class="btn mr-2" @click="getChapters(chap)">{{chap}}</button>
     
     </div>
 
     <!-- Photo Grid -->
-    <div class="row"> 
-        
-        <div class="column" v-if="chapters">
-            <!-- {{chapters.pages}} -->
-            <div v-for="img in chapters.pages" :key="img.id"> <img   :src="img.image.file" width="300" height="200"></div>
+    <div class="container">
+        <div class="row"> 
             
+            <div class="justify-content-center" v-if="chapters">
+                <!-- {{chapters.pages}} -->
+                <div class="">
+                    <b-carousel
+                        id="carousel-fade"
+                        style="text-shadow: 0px 0px 2px #000"
+                        controls
+                        fade
+                        indicators
+                        img-width="1024"
+                        img-height="380"
+                    >
+                        <b-carousel-slide
+                        v-for="img in chapters.pages" :key="img.id"
+                        caption="First slide"
+                        :img-src="img.image.file"
+                        ></b-carousel-slide>
+                        
+                    </b-carousel>
+                    
+                </div>
+            </div>
         </div>
-    
     </div>
 </div>
 </template>
