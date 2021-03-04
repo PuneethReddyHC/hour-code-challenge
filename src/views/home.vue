@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div class="card">
-      <div class="d-flex justify-content-center p-2">
-
-          <book-store :books="books"></book-store>
-        
+    <div class="row justify-content-md-center">
+      <div class="col-md-8 col-lg-6 col-xl-5">
+          <div class="card">
+            <book-store :books="books"></book-store> 
+          </div>
       </div>
     </div>
 </div>
@@ -59,5 +59,13 @@ export default {
 .active {
   background-color: rgb(1 91 92);
   color: white;
+}
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 </style>

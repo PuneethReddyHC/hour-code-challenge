@@ -1,17 +1,16 @@
 <template>
   
-  <div>
-    <div class="tabs">
-      <button v-for="book in books" :key="book.title"
-      v-on:click="activetab=book.id" v-bind:class="[ activetab === book.id ? 'active' : '' ]">{{book.title}}</button>
-    </div>
-    <div class="pt-2">
-        <div v-for="book in books" :key="book.title+book.id">
-          <div v-if="activetab === book.id" class="tabcontent">
-              <chapter :chapter_ids="book.chapter_ids"></chapter>
+  <div class="m-3">
+      <div class="tabs">
+        <button v-for="book in books" :key="book.title"
+        v-on:click="activetab=book.id" v-bind:class="[ activetab === book.id ? 'active' : '' ]">{{book.title}}</button>
+      </div>
+      <div class="pt-2">
+          <div v-for="book in books" :key="book.title+book.id">
+            <div v-if="activetab === book.id" class="tabcontent">
+                <chapter :chapter_ids="book.chapter_ids"></chapter>
+            </div>
           </div>
-        </div>
-        
     </div>
   </div>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="">
 
     <div class="tabs">
       <button v-for="chap in chapter_ids" @click="getChapters(chap)" :key="chap+'chap'+chap"
@@ -11,10 +11,9 @@
               <swiper class="swiper mt-2">
                 <swiper-slide v-for="page in chapter.pages" :key="page.id">
                   <img :src="page.image.file"/>
-                  <p class="pt-2">{{page.id}}/{{chapter.pages.length}}</p>
+                  <p class="pt-2">{{page.page_index + 1}}/{{chapter.pages.length}}</p>
                 </swiper-slide>
               </swiper>
-              
           </div>
         </div>
     </div>
